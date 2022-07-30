@@ -12,7 +12,10 @@ type TestSet struct {
 	rows, cols int
 }
 
-var outputStarted bool
+var (
+	outputStarted bool
+	scanner       *bufio.Scanner
+)
 
 func readNextLine(scanner *bufio.Scanner) (string, error) {
 	scanner.Scan()
@@ -103,11 +106,10 @@ func printLine(data string) {
 
 func init() {
 	outputStarted = false
+	scanner = bufio.NewScanner(os.Stdin)
 }
 
 func main() {
-	scanner := bufio.NewScanner(os.Stdin)
-
 	// Get number of test sets
 	tsLen, err := readLenOfTestSet(scanner)
 	if err != nil {
@@ -122,7 +124,7 @@ func main() {
 		}
 
 		// Opening lines
-		printLine(fmt.Sprintf("Case #%d:", i + 1))
+		printLine(fmt.Sprintf("Case #%d:", i+1))
 		printLine(genFrame(set, "start"))
 
 		for j := 0; j < set.rows; j++ {
