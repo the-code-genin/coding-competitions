@@ -42,7 +42,7 @@ func readNextTestSetHeader(scanner *bufio.Scanner) (*TestSetHeader, error) {
 	}
 
 	data := strings.Split(rawData, " ")
-	if len(data) != 2 {
+	if len(data) != 3 {
 		return nil, fmt.Errorf("invalid test set 1")
 	}
 
@@ -58,7 +58,7 @@ func readNextTestSetHeader(scanner *bufio.Scanner) (*TestSetHeader, error) {
 
 	p, err := strconv.Atoi(data[2])
 	if err != nil {
-		return nil, fmt.Errorf("invalid test set 3")
+		return nil, fmt.Errorf("invalid test set 4")
 	}
 
 	return &TestSetHeader{m, n, p}, nil
@@ -71,15 +71,12 @@ func readParticipantResult(scanner *bufio.Scanner) ([]int, error) {
 	}
 
 	data := strings.Split(rawData, " ")
-	if len(data) != 2 {
-		return nil, fmt.Errorf("invalid test set 1")
-	}
 
 	buffer := make([]int, 0)
 	for i := 0; i < len(data); i++ {
 		res, err := strconv.Atoi(data[i])
 		if err != nil {
-			return nil, fmt.Errorf("invalid test set 2")
+			return nil, fmt.Errorf("invalid test set 6")
 		}
 
 		buffer = append(buffer, res)
@@ -145,7 +142,7 @@ func main() {
 			}
 
 			if maxPoint > focusPoint {
-				reqSteps += maxPoint
+				reqSteps += maxPoint - focusPoint
 			}
 		}
 
